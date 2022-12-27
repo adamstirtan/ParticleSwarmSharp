@@ -1,4 +1,4 @@
-﻿namespace ParticleSwarm
+﻿namespace ParticleSwarmSharp
 {
     public enum Topologies
     {

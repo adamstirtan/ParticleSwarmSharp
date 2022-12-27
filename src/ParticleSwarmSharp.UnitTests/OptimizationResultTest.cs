@@ -1,4 +1,4 @@
-namespace ParticleSwarm.Tests
+namespace ParticleSwarm.UnityTests
 {
     [TestClass]
     public class OptimizationResultTest

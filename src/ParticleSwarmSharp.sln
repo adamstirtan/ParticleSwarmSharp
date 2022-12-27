@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarm", "ParticleSwarm\ParticleSwarm.csproj", "{3F5F7D22-E98C-415F-B160-110CB1B2D9EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp", "ParticleSwarmSharp\ParticleSwarmSharp.csproj", "{3F5F7D22-E98C-415F-B160-110CB1B2D9EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSwarm.Tests", "ParticleSwarm.Tests\ParticleSwarm.Tests.csproj", "{2CDCB902-F721-4462-904E-C942BA5ACFA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp.UnitTests", "ParticleSwarmSharp.Tests\ParticleSwarmSharp.UnitTests.csproj", "{2CDCB902-F721-4462-904E-C942BA5ACFA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
