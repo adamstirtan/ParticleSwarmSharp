@@ -1,33 +1,25 @@
 ﻿using ParticleSwarmSharp.Fitness;
+using ParticleSwarmSharp.Populations;
 
 namespace ParticleSwarmSharp
 {
     public class ParticleSwarm : IParticleSwarm
     {
         private readonly ParticleSwarmOptions _options;
+        private readonly IPopulation _population;
         private readonly IFitnessFunction _fitnessFunction;
-        private readonly List<Particle> _particles;
 
         private bool _isRunning;
         private Particle _globalBest;
 
         public ParticleSwarm(
             ParticleSwarmOptions options,
+            IPopulation population,
             IFitnessFunction fitnessFunction)
         {
             _options = options;
+            _population = population;
             _fitnessFunction = fitnessFunction;
-
-            _particles = new List<Particle>(_options.PopulationSize);
-
-            for (int i = 0; i < _options.PopulationSize; i++)
-            {
-                _particles[i] = new Particle(
-                    _options.Inertia,
-                    _options.Cognitive,
-                    _options.Social,
-                    _fitnessFunction.Dimensions);
-            }
         }
 
         public TimeSpan RunTime => throw new NotImplementedException();
@@ -42,26 +34,27 @@ namespace ParticleSwarmSharp
 
         public OptimizationResult Start()
         {
-            if (_isRunning)
-            {
-                throw new Exception("Optimization is already running");
-            }
+            //if (_isRunning)
+            //{
+            //    throw new Exception("Optimization is already running");
+            //}
 
-            _isRunning = true;
+            //_isRunning = true;
 
-            OptimizationResult result = new();
+            //OptimizationResult result = new();
 
-            for (int iteration = 0; iteration < _options.Iterations; iteration++)
-            {
-                foreach (Particle particle in _particles)
-                {
-                    particle.Update();
-                }
+            //for (int iteration = 0; iteration < _options.Iterations; iteration++)
+            //{
+            //    foreach (Particle particle in _particles)
+            //    {
+            //        particle.Update();
+            //    }
 
-                OnIterationChanged(new IterationEventArgs(iteration));
-            }
+            //    OnIterationChanged(new IterationEventArgs(iteration));
+            //}
 
-            return result;
+            //return result;
+            return null;
         }
 
         public void Stop()

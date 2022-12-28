@@ -1,6 +1,4 @@
-﻿using ParticleSwarmSharp.Fitness;
-
-namespace ParticleSwarmSharp
+﻿namespace ParticleSwarmSharp
 {
     public class Particle
     {
@@ -10,10 +8,9 @@ namespace ParticleSwarmSharp
 
         public double[] Position { get; set; }
         public double[] Velocity { get; set; }
-
         public double[] PersonalBest { get; set; }
 
-        public Particle(double inertia, double cognitive, double social, int dimensions)
+        public Particle(double inertia, double cognitive, double social, int dimensions, double minX)
         {
             Position = new double[dimensions];
             Velocity = new double[dimensions];
@@ -36,11 +33,6 @@ namespace ParticleSwarmSharp
 
                 Position[i] += delta;
             }
-        }
-
-        public double GetFitness(IFitnessFunction fitnessFunction)
-        {
-            return double.MaxValue;
         }
     }
 }
