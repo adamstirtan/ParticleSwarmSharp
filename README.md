@@ -1,2 +1,2 @@
-# ParticleSwarm.NET
+# PSOSharp
 Particle Swarm Optimization for .NET
