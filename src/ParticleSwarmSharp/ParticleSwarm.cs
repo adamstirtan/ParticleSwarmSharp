@@ -10,7 +10,6 @@ namespace ParticleSwarmSharp
         private readonly IFitnessFunction _fitnessFunction;
 
         private bool _isRunning;
-        private Particle _globalBest;
 
         public ParticleSwarm(
             IPopulation population,
@@ -21,6 +20,8 @@ namespace ParticleSwarmSharp
         }
 
         public TimeSpan RunTime => throw new NotImplementedException();
+
+        public Particle BestParticle => throw new NotImplementedException();
 
         public event EventHandler? IterationChanged;
 

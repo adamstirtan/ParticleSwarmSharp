@@ -10,6 +10,8 @@
         public double[] Velocity { get; set; }
         public double[]? PersonalBest { get; set; }
 
+        public double? Fitness { get; set; }
+
         public Particle(double inertia, double cognitive, double social, int dimensions, double minX)
         {
             Position = new double[dimensions];

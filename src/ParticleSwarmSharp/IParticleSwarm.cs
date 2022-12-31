@@ -1,4 +1,6 @@
-﻿namespace ParticleSwarmSharp
+﻿using ParticleSwarmSharp.Particles;
+
+namespace ParticleSwarmSharp
 {
     /// <summary>
     /// Defines an interface for a Particle Swarm Optimization algorithm
@@ -19,7 +21,12 @@
         /// Occurs when optimization is stopped during runtime.
         /// </summary>
         event EventHandler Stopped;
-        
+
+        /// <summary>
+        /// Gets the best particle.
+        /// </summary>
+        Particle BestParticle { get; }
+
         /// <summary>
         /// Gets the runtime for the optimization.
         /// </summary>
