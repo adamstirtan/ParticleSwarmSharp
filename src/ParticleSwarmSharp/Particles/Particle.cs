@@ -1,4 +1,4 @@
-﻿namespace ParticleSwarmSharp
+﻿namespace ParticleSwarmSharp.Particles
 {
     public class Particle
     {
@@ -8,7 +8,7 @@
 
         public double[] Position { get; set; }
         public double[] Velocity { get; set; }
-        public double[] PersonalBest { get; set; }
+        public double[]? PersonalBest { get; set; }
 
         public Particle(double inertia, double cognitive, double social, int dimensions, double minX)
         {
@@ -27,9 +27,9 @@
             for (int i = 0; i < Position.Length; i++)
             {
                 double delta =
-                    (_inertia * Velocity[i]) +
-                    (_cognitive * random.NextDouble() * (PersonalBest[i] - Position[i])) +
-                    (_social * random.NextDouble() * (globalBest.Position[i] - Position[i]));
+                    _inertia * Velocity[i] +
+                    _cognitive * random.NextDouble() * (PersonalBest[i] - Position[i]) +
+                    _social * random.NextDouble() * (globalBest.Position[i] - Position[i]);
 
                 Position[i] += delta;
             }

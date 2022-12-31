@@ -1,4 +1,7 @@
-namespace ParticleSwarm.UnityTests
+using ParticleSwarmSharp.Fitness;
+using ParticleSwarmSharp.Populations;
+
+namespace ParticleSwarmSharp.UnitTests
 {
     [TestClass]
     public class OptimizationResultTest
@@ -13,9 +16,19 @@ namespace ParticleSwarm.UnityTests
                 Topology = Topologies.Star
             };
 
-            ParticleSwarm pso = new(options);
+            IPopulation population = new Population(options.PopulationSize);
 
-            OptimizationResult result = pso.Optimize();
+            ParticleSwarm pso = new(options, population, new FuncFitness((particle) =>
+            {
+                double x1 = particle.Position[0];
+                double y1 = particle.Position[1];
+                double x2 = particle.Position[2];
+                double y2 = particle.Position[3];
+
+                return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
+            }));
+
+            OptimizationResult result = pso.Start();
 
             Assert.IsNotNull(result);
         }

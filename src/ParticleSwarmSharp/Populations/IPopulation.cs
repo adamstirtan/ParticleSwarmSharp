@@ -1,4 +1,6 @@
-﻿namespace ParticleSwarmSharp.Populations
+﻿using ParticleSwarmSharp.Particles;
+
+namespace ParticleSwarmSharp.Populations
 {
     /// <summary>
     /// Defines an interface for a population of canadidate solutions.

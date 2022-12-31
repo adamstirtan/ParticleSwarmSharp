@@ -1,4 +1,5 @@
 ﻿using ParticleSwarmSharp.Fitness;
+using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
 
 namespace ParticleSwarmSharp

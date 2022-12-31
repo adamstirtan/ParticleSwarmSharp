@@ -1,4 +1,6 @@
-﻿namespace ParticleSwarmSharp.Populations
+﻿using ParticleSwarmSharp.Particles;
+
+namespace ParticleSwarmSharp.Populations
 {
     public class Generation
     {

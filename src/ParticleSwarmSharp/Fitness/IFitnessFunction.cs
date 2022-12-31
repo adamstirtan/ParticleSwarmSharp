@@ -1,4 +1,6 @@
-﻿namespace ParticleSwarmSharp.Fitness
+﻿using ParticleSwarmSharp.Particles;
+
+namespace ParticleSwarmSharp.Fitness
 {
     /// <summary>
     /// Defines an interface for particle swarm optimization fitness.
