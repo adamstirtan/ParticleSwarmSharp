@@ -6,7 +6,6 @@ namespace ParticleSwarmSharp
 {
     public class ParticleSwarm : IParticleSwarm
     {
-        private readonly ParticleSwarmOptions _options;
         private readonly IPopulation _population;
         private readonly IFitnessFunction _fitnessFunction;
 
@@ -14,11 +13,9 @@ namespace ParticleSwarmSharp
         private Particle _globalBest;
 
         public ParticleSwarm(
-            ParticleSwarmOptions options,
             IPopulation population,
             IFitnessFunction fitnessFunction)
         {
-            _options = options;
             _population = population;
             _fitnessFunction = fitnessFunction;
         }

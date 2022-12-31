@@ -9,16 +9,9 @@ namespace ParticleSwarmSharp.UnitTests
         [TestMethod]
         public void TestMethod1()
         {
-            ParticleSwarmOptions options = new()
-            {
-                PopulationSize = 100,
-                Iterations = 25,
-                Topology = Topologies.Star
-            };
+            IPopulation population = new Population(100);
 
-            IPopulation population = new Population(options.PopulationSize);
-
-            ParticleSwarm pso = new(options, population, new FuncFitness((particle) =>
+            IParticleSwarm swarm = new ParticleSwarm(population, new FuncFitness((particle) =>
             {
                 double x1 = particle.Position[0];
                 double y1 = particle.Position[1];
@@ -28,7 +21,7 @@ namespace ParticleSwarmSharp.UnitTests
                 return Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2));
             }));
 
-            OptimizationResult result = pso.Start();
+            OptimizationResult result = swarm.Start();
 
             Assert.IsNotNull(result);
         }
