@@ -10,6 +10,8 @@ namespace ParticleSwarmSharp.Populations
 
         public Particle BestParticle { get; protected set; }
 
+        public IList<Generation> Generations { get; protected set; }
+
         public Population(int size)
         {
             if (size < 1)
@@ -18,6 +20,7 @@ namespace ParticleSwarmSharp.Populations
             }
 
             CreatedAt = DateTime.Now;
+            Generations = new List<Generation>();
         }
 
         public void CreateInitialGeneration()
@@ -28,6 +31,11 @@ namespace ParticleSwarmSharp.Populations
         public void EndGeneration()
         {
             throw new NotImplementedException();
+        }
+
+        protected virtual void OnBestParticleChanged(EventArgs e)
+        {
+            BestParticleChanged?.Invoke(this, e);
         }
     }
 }

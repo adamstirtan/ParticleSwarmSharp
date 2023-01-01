@@ -33,10 +33,10 @@ namespace ParticleSwarmSharp
         TimeSpan RunTime { get; }
 
         /// <summary>
-        /// Starts the optimization using the provided options.
+        /// Starts the optimization.
         /// </summary>
         /// <returns></returns>
-        OptimizationResult Start();
+        void Start();
 
         /// <summary>
         /// Stops the running optimization.

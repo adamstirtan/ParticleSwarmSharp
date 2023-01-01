@@ -1,6 +1,7 @@
 ﻿using ParticleSwarmSharp.Fitness;
 using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
+using ParticleSwarmSharp.Termination;
 
 namespace ParticleSwarmSharp
 {
@@ -8,15 +9,18 @@ namespace ParticleSwarmSharp
     {
         private readonly IPopulation _population;
         private readonly IFitnessFunction _fitnessFunction;
+        private readonly ITermination _terminationCriteria;
 
         private bool _isRunning;
 
         public ParticleSwarm(
             IPopulation population,
-            IFitnessFunction fitnessFunction)
+            IFitnessFunction fitnessFunction,
+            ITermination terminationCriteria)
         {
             _population = population;
             _fitnessFunction = fitnessFunction;
+            _terminationCriteria = terminationCriteria;
         }
 
         public TimeSpan RunTime => throw new NotImplementedException();
@@ -31,7 +35,7 @@ namespace ParticleSwarmSharp
 
         public event EventHandler? Stopped;
 
-        public OptimizationResult Start()
+        public void Start()
         {
             if (_isRunning)
             {
@@ -40,20 +44,13 @@ namespace ParticleSwarmSharp
 
             _isRunning = true;
 
-            //OptimizationResult result = new();
+            bool terminationCriteriaReached;
 
-            //for (int iteration = 0; iteration < _options.Iterations; iteration++)
-            //{
-            //    foreach (Particle particle in _particles)
-            //    {
-            //        particle.Update();
-            //    }
-
-            //    OnIterationChanged(new IterationEventArgs(iteration));
-            //}
-
-            //return result;
-            return null;
+            do
+            {
+                terminationCriteriaReached = EvolveOneGeneration();
+            }
+            while (!terminationCriteriaReached);
         }
 
         public void Stop()
@@ -74,6 +71,16 @@ namespace ParticleSwarmSharp
         protected virtual void OnStop(EventArgs e)
         {
             Stopped?.Invoke(this, e);
+        }
+
+        private bool EvolveOneGeneration()
+        {
+            return EndCurrentGeneration();
+        }
+
+        private bool EndCurrentGeneration()
+        {
+            return false;
         }
     }
 }
