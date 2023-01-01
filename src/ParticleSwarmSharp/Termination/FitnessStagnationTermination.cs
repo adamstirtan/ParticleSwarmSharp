@@ -2,9 +2,9 @@
 {
     public class FitnessStagnationTermination : ITermination
     {
-        private int _stagnatedGenerationCount;
-        private int _stagnatedGenerationLimit;
+        private readonly int _stagnatedGenerationLimit;
 
+        private int _stagnatedGenerationCount;
         private double _lastFitness;
 
         public FitnessStagnationTermination()

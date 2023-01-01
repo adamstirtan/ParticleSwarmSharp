@@ -12,7 +12,7 @@
 
         public double? Fitness { get; set; }
 
-        public Particle(double inertia, double cognitive, double social, int dimensions, double minX)
+        public Particle(double inertia, double cognitive, double social, int dimensions)
         {
             Position = new double[dimensions];
             Velocity = new double[dimensions];

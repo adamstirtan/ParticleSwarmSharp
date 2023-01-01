@@ -33,12 +33,12 @@ namespace ParticleSwarmSharp
 
         public OptimizationResult Start()
         {
-            //if (_isRunning)
-            //{
-            //    throw new Exception("Optimization is already running");
-            //}
+            if (_isRunning)
+            {
+                throw new Exception("Optimization is already running");
+            }
 
-            //_isRunning = true;
+            _isRunning = true;
 
             //OptimizationResult result = new();
 
