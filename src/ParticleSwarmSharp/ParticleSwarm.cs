@@ -86,7 +86,7 @@ namespace ParticleSwarmSharp
         {
             foreach (IParticle particle in _population.CurrentGeneration.Particles)
             {
-                particle.Update(_population.BestParticle);
+                particle.Update(BestParticle);
             }
 
             return EndCurrentGeneration();
@@ -99,7 +99,7 @@ namespace ParticleSwarmSharp
             _population.EndGeneration();
 
             OnGenerationComplete(new GenerationEventArgs(
-                _population.GenerationNumber, _population.BestParticle));
+                _population.GenerationNumber, BestParticle));
 
             return _terminationCriteria.HasReached(this);
         }
