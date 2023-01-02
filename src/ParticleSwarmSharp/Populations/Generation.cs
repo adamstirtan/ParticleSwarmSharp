@@ -4,7 +4,7 @@ namespace ParticleSwarmSharp.Populations
 {
     public class Generation
     {
-        public Generation(int number, IEnumerable<Particle> particles)
+        public Generation(int number, IEnumerable<IParticle> particles)
         {
             if (number < 1)
             {
@@ -25,8 +25,13 @@ namespace ParticleSwarmSharp.Populations
 
         public DateTime CreatedAt { get; internal set; }
 
-        public IEnumerable<Particle> Particles { get; internal set; }
+        public IEnumerable<IParticle> Particles { get; internal set; }
 
         public Particle? BestParticle { get; internal set; }
+
+        public void End()
+        {
+            Particles = Particles.OrderByDescending(x => x.Fitness.Value);
+        }
     }
 }

@@ -18,6 +18,16 @@ namespace ParticleSwarmSharp.Populations
         IList<Generation> Generations { get; }
 
         /// <summary>
+        /// Gets the current generation of particles.
+        /// </summary>
+        Generation CurrentGeneration { get; }
+
+        /// <summary>
+        /// Gets the current generation number.
+        /// </summary>
+        int GenerationNumber { get; }
+
+        /// <summary>
         /// Gets the creation date.
         /// </summary>
         DateTime CreatedAt { get; }
@@ -25,12 +35,17 @@ namespace ParticleSwarmSharp.Populations
         /// <summary>
         /// Gets the best particle.
         /// </summary>
-        Particle BestParticle { get; }
+        IParticle BestParticle { get; }
 
         /// <summary>
         /// Creates the initial generation of particles.
         /// </summary>
         void CreateInitialGeneration();
+
+        /// <summary>
+        /// Advancwes to the next generation.
+        /// </summary>
+        void CreateGeneration(IEnumerable<IParticle> particles);
 
         /// <summary>
         ///  Ends the current generation.

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp", "Parti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp.UnitTests", "ParticleSwarmSharp.UnitTests\ParticleSwarmSharp.UnitTests.csproj", "{2CDCB902-F721-4462-904E-C942BA5ACFA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSwarmSharp.Runner.ConsoleApp", "ParticleSwarmSharp.Runner.ConsoleApp\ParticleSwarmSharp.Runner.ConsoleApp.csproj", "{0DF055C3-04D9-48C9-8E2D-6217E65612AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2CDCB902-F721-4462-904E-C942BA5ACFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CDCB902-F721-4462-904E-C942BA5ACFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CDCB902-F721-4462-904E-C942BA5ACFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF055C3-04D9-48C9-8E2D-6217E65612AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF055C3-04D9-48C9-8E2D-6217E65612AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF055C3-04D9-48C9-8E2D-6217E65612AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF055C3-04D9-48C9-8E2D-6217E65612AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

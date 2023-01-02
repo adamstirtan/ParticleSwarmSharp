@@ -14,8 +14,8 @@ namespace ParticleSwarmSharp.UnitTests.Termination
             const int generations = 10;
 
             Mock<IParticleSwarm> mockSwarm = new();
-            Mock<Particle> mockParticle = new(
-                MockBehavior.Strict, new object[] { 0.9, 1.4, 1.4, 10 });
+            Mock<ClassicParticle> mockParticle = new(
+                MockBehavior.Strict, new object[] { 10 });
 
             mockSwarm.Setup(x => x.BestParticle).Returns(mockParticle.Object);
 
@@ -37,8 +37,8 @@ namespace ParticleSwarmSharp.UnitTests.Termination
             const int generations = 10;
 
             Mock<IParticleSwarm> mockSwarm = new();
-            Mock<Particle> mockParticle = new(
-                MockBehavior.Strict, new object[] { 0.9, 1.4, 1.4, 10 });
+            Mock<ClassicParticle> mockParticle = new(
+                MockBehavior.Strict, new object[] { 10 });
 
             mockSwarm.Setup(x => x.BestParticle).Returns(mockParticle.Object);
             mockSwarm.Setup(x => x.RunTime).Returns(TimeSpan.FromSeconds(2));

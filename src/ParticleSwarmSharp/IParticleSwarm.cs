@@ -8,9 +8,9 @@ namespace ParticleSwarmSharp
     public interface IParticleSwarm
     {
         /// <summary>
-        /// Occurs after an iteration completes.
+        /// Occurs after an generation completes.
         /// </summary>
-        event EventHandler IterationComplete;
+        event EventHandler GenerationComplete;
 
         /// <summary>
         /// Occurs when the termination criteria is reached.

@@ -1,40 +1,24 @@
 ﻿namespace ParticleSwarmSharp.Particles
 {
-    public class Particle
+    public abstract class Particle : IParticle
     {
-        private readonly double _inertia;
-        private readonly double _cognitive;
-        private readonly double _social;
-
-        public double[] Position { get; set; }
-        public double[] Velocity { get; set; }
-        public double[]? PersonalBest { get; set; }
+        protected double[] Position;
+        protected double[] Velocity;
 
         public double? Fitness { get; set; }
 
-        public Particle(double inertia, double cognitive, double social, int dimensions)
+        public int Dimensions { get; set; }
+
+        protected Particle(int dimensions)
         {
+            Dimensions = dimensions;
+
             Position = new double[dimensions];
             Velocity = new double[dimensions];
-
-            _inertia = inertia;
-            _cognitive = cognitive;
-            _social = social;
         }
 
-        public virtual void Update(Particle globalBest)
-        {
-            Random random = new();
+        public abstract void Update(params IParticle[] particles);
 
-            for (int i = 0; i < Position.Length; i++)
-            {
-                double delta =
-                    _inertia * Velocity[i] +
-                    _cognitive * random.NextDouble() * (PersonalBest[i] - Position[i]) +
-                    _social * random.NextDouble() * (globalBest.Position[i] - Position[i]);
-
-                Position[i] += delta;
-            }
-        }
+        public abstract IParticle Clone();
     }
 }

@@ -1,4 +1,5 @@
-﻿using ParticleSwarmSharp.Fitness;
+﻿using ParticleSwarmSharp.Events;
+using ParticleSwarmSharp.Fitness;
 using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
 using ParticleSwarmSharp.Termination;
@@ -27,9 +28,7 @@ namespace ParticleSwarmSharp
 
         public Particle BestParticle => throw new NotImplementedException();
 
-        public event EventHandler? IterationChanged;
-
-        public event EventHandler? IterationComplete;
+        public event EventHandler? GenerationComplete;
 
         public event EventHandler? TerminationCriteriaReached;
 
@@ -63,9 +62,9 @@ namespace ParticleSwarmSharp
             }
         }
 
-        protected virtual void OnIterationChanged(IterationEventArgs e)
+        protected virtual void OnGenerationComplete(GenerationEventArgs e)
         {
-            IterationChanged?.Invoke(this, e);
+            GenerationComplete?.Invoke(this, e);
         }
 
         protected virtual void OnStop(EventArgs e)
@@ -75,6 +74,8 @@ namespace ParticleSwarmSharp
 
         private bool EvolveOneGeneration()
         {
+            _population.EndGeneration();
+
             return EndCurrentGeneration();
         }
 
