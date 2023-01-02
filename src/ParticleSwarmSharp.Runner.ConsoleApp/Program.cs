@@ -4,8 +4,6 @@ using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
 using ParticleSwarmSharp.Termination;
 
-Random random = new();
-
 int populationSize = 3;
 
 List<ClassicParticle> particles = new();
@@ -23,13 +21,13 @@ IFitnessFunction fitness = new FuncFitness((particle) =>
 {
     double x = particle.Position[0];
 
-    return Math.Sin(x) + Math.Sin(10.0 / 3.0 * x);
+    return -1 * Math.Pow(x, 2);
 });
 
 IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
-    new GenerationCountTermination(50));
+    new GenerationCountTermination(5));
 
 pso.GenerationComplete += (s, e) =>
 {
@@ -38,12 +36,12 @@ pso.GenerationComplete += (s, e) =>
 
 pso.TerminationCriteriaReached += (s, e) =>
 {
-    Console.WriteLine("Termination criteria reached");
+    Console.WriteLine(e.ToString());
 };
 
 pso.Stopped += (s, e) =>
 {
-    Console.WriteLine("Stopped");
+    Console.WriteLine(e.ToString());
 };
 
 pso.Start();

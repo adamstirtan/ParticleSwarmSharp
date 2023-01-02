@@ -57,8 +57,6 @@
             Position.CopyTo(clone.Position, 0);
             Velocity.CopyTo(clone.Velocity, 0);
 
-            clone.PersonalBest = PersonalBest.Clone();
-
             return clone;
         }
 

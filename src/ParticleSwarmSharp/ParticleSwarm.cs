@@ -38,7 +38,7 @@ namespace ParticleSwarmSharp
         {
             if (_isRunning)
             {
-                throw new Exception("Optimization is already running");
+                throw new Exception();
             }
 
             _isRunning = true;
@@ -52,6 +52,9 @@ namespace ParticleSwarmSharp
                 terminationCriteriaReached = EvolveOneGeneration();
             }
             while (!terminationCriteriaReached);
+
+            OnTerminationCriteriaReached(new TerminationReachedEventArgs());
+            Stop();
         }
 
         public void Stop()
@@ -60,7 +63,7 @@ namespace ParticleSwarmSharp
             {
                 _isRunning = false;
 
-                OnStop(new EventArgs());
+                OnStop(new StoppedEventArgs());
             }
         }
 
@@ -69,7 +72,12 @@ namespace ParticleSwarmSharp
             GenerationComplete?.Invoke(this, e);
         }
 
-        protected virtual void OnStop(EventArgs e)
+        protected virtual void OnTerminationCriteriaReached(TerminationReachedEventArgs e)
+        {
+            TerminationCriteriaReached?.Invoke(this, e);
+        }
+
+        protected virtual void OnStop(StoppedEventArgs e)
         {
             Stopped?.Invoke(this, e);
         }
