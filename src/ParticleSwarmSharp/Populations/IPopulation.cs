@@ -13,21 +13,6 @@ namespace ParticleSwarmSharp.Populations
         event EventHandler BestParticleChanged;
 
         /// <summary>
-        /// Gets the set of generations.
-        /// </summary>
-        IList<Generation> Generations { get; }
-
-        /// <summary>
-        /// Gets the current generation of particles.
-        /// </summary>
-        Generation? CurrentGeneration { get; }
-
-        /// <summary>
-        /// Gets the current generation number.
-        /// </summary>
-        int GenerationNumber { get; }
-
-        /// <summary>
         /// Gets the creation date.
         /// </summary>
         DateTime CreatedAt { get; }
@@ -38,13 +23,8 @@ namespace ParticleSwarmSharp.Populations
         IParticle? BestParticle { get; set; }
 
         /// <summary>
-        /// Advances to the next generation.
+        /// GEts the particles.
         /// </summary>
-        void CreateGeneration();
-
-        /// <summary>
-        ///  Ends the current generation.
-        /// </summary>
-        void EndGeneration();
+        IEnumerable<IParticle> Particles { get; set; }
     }
 }

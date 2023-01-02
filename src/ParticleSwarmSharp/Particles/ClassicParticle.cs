@@ -27,16 +27,18 @@ namespace ParticleSwarmSharp.Particles
             _inertia = inertia;
             _cognition = cognition;
             _social = social;
+
+            PersonalBest = this;
         }
 
-        public IParticle? PersonalBest { get; private set; }
+        public IParticle PersonalBest { get; private set; }
 
         public override double? Fitness
         {
             get { return _fitness; }
             set
             {
-                if (PersonalBest == null || value < PersonalBest.Fitness)
+                if (PersonalBest.Fitness == null || value < PersonalBest.Fitness)
                 {
                     PersonalBest = Clone();
                 }
@@ -57,11 +59,6 @@ namespace ParticleSwarmSharp.Particles
 
         public override void Update(params IParticle[] particles)
         {
-            if (PersonalBest == null)
-            {
-                throw new Exception("Particle must be evaluated by the fitness function first.");
-            }
-
             ClassicParticle globalBest = (ClassicParticle)particles.First();
 
             double r1 = _random.GetDouble();

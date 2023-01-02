@@ -4,15 +4,15 @@ using ParticleSwarmSharp.Particles;
 
 namespace ParticleSwarmSharp.Events
 {
-    public class GenerationEventArgs : EventArgs
+    public class IterationEventArgs : EventArgs
     {
-        public GenerationEventArgs(int generationNumber, IParticle bestParticle)
+        public IterationEventArgs(int iterationNumber, IParticle bestParticle)
         {
-            GenerationNumber = generationNumber;
+            IterationNumber = iterationNumber;
             BestParticle = bestParticle;
         }
 
-        public int GenerationNumber { get; set; }
+        public int IterationNumber { get; set; }
 
         public IParticle BestParticle { get; set; }
 
@@ -20,7 +20,7 @@ namespace ParticleSwarmSharp.Events
         {
             StringBuilder stringBuilder = new();
 
-            stringBuilder.Append($"Generation:\t{GenerationNumber}\n");
+            stringBuilder.Append($"Iteration:\t{IterationNumber}\n");
             stringBuilder.Append($"Fitness:\t{BestParticle.Fitness}\n");
             stringBuilder.Append($"Solution:\t{string.Join(", ", BestParticle.Position)}");
             stringBuilder.Append('\n');

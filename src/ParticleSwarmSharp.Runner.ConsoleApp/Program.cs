@@ -36,7 +36,7 @@ IFitnessFunction fitness = new FuncFitness(candidate =>
 IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
-    new GenerationCountTermination(5));
+    new GenerationCountTermination(100));
 
 pso.GenerationComplete += (s, e) =>
 {

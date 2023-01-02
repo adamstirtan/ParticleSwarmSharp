@@ -13,6 +13,7 @@ namespace ParticleSwarmSharp
         private readonly ITermination _terminationCriteria;
 
         private bool _isRunning;
+        private int _iteration;
 
         public ParticleSwarm(
             IPopulation population,
@@ -42,6 +43,7 @@ namespace ParticleSwarmSharp
             }
 
             _isRunning = true;
+            _iteration = 0;
 
             EvaluateFitness();
 
@@ -49,7 +51,7 @@ namespace ParticleSwarmSharp
 
             do
             {
-                terminationCriteriaReached = EvolveOneGeneration();
+                terminationCriteriaReached = Iteration();
             }
             while (!terminationCriteriaReached);
 
@@ -67,7 +69,7 @@ namespace ParticleSwarmSharp
             }
         }
 
-        protected virtual void OnGenerationComplete(GenerationEventArgs e)
+        protected virtual void OnIterationComplete(IterationEventArgs e)
         {
             GenerationComplete?.Invoke(this, e);
         }
@@ -82,43 +84,29 @@ namespace ParticleSwarmSharp
             Stopped?.Invoke(this, e);
         }
 
-        private bool EvolveOneGeneration()
+        private bool Iteration()
         {
-            foreach (IParticle particle in _population.CurrentGeneration.Particles)
+            foreach (IParticle particle in _population.Particles)
             {
                 particle.Update(BestParticle);
             }
 
-            _population.CreateGeneration();
-
-            return EndCurrentGeneration();
-        }
-
-        private bool EndCurrentGeneration()
-        {
             EvaluateFitness();
 
-            _population.EndGeneration();
-
-            OnGenerationComplete(new GenerationEventArgs(
-                _population.GenerationNumber, BestParticle));
+            OnIterationComplete(new IterationEventArgs(
+                ++_iteration, BestParticle));
 
             return _terminationCriteria.HasReached(this);
         }
 
         private void EvaluateFitness()
         {
-            if (_population.CurrentGeneration == null)
-            {
-                throw new Exception();
-            }
-
-            foreach (var particle in _population.CurrentGeneration.Particles)
+            foreach (var particle in _population.Particles)
             {
                 particle.Fitness = _fitnessFunction.Evaluate(particle);
             }
 
-            _population.BestParticle = _population.CurrentGeneration.Particles
+            _population.BestParticle = _population.Particles
                 .OrderBy(x => x.Fitness.GetValueOrDefault())
                 .First();
         }
