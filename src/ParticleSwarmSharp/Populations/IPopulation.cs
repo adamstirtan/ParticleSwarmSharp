@@ -20,7 +20,7 @@ namespace ParticleSwarmSharp.Populations
         /// <summary>
         /// Gets the current generation of particles.
         /// </summary>
-        Generation CurrentGeneration { get; }
+        Generation? CurrentGeneration { get; }
 
         /// <summary>
         /// Gets the current generation number.
@@ -35,12 +35,18 @@ namespace ParticleSwarmSharp.Populations
         /// <summary>
         /// Gets the best particle.
         /// </summary>
-        IParticle BestParticle { get; set; }
+        IParticle? BestParticle { get; set; }
 
         /// <summary>
-        /// Advancwes to the next generation.
+        /// Initializes particles in the search-space.
         /// </summary>
-        void CreateGeneration(IEnumerable<IParticle> particles);
+        /// <param name="particles">The initial particles.</param>
+        void InitializeParticles(IEnumerable<IParticle> particles);
+
+        /// <summary>
+        /// Advances to the next generation.
+        /// </summary>
+        void CreateGeneration();
 
         /// <summary>
         ///  Ends the current generation.

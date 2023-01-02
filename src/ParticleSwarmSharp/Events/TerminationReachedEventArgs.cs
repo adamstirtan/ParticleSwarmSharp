@@ -4,10 +4,5 @@
     {
         public TerminationReachedEventArgs()
         { }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

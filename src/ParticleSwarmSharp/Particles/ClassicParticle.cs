@@ -11,9 +11,10 @@
 
         private readonly Random _random = new();
 
-        private double _inertia;
-        private double _cognition;
-        private double _social;
+        private readonly double _inertia;
+        private readonly double _cognition;
+        private readonly double _social;
+
         private double? _fitness;
 
         public ClassicParticle(int dimensions) : this(dimensions, DefaultInertia, DefaultCognition, DefaultSocial)
@@ -34,7 +35,7 @@
             }
         }
 
-        public IParticle PersonalBest { get; private set; }
+        public IParticle? PersonalBest { get; private set; }
 
         public override double? Fitness
         {
@@ -62,6 +63,11 @@
 
         public override void Update(params IParticle[] particles)
         {
+            if (PersonalBest == null)
+            {
+                throw new Exception("Particle must be evaluated by the fitness function first.");
+            }
+
             ClassicParticle globalBest = (ClassicParticle)particles.First();
 
             double r1 = _random.NextDouble();

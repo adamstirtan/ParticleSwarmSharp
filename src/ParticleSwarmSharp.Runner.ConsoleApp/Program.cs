@@ -15,13 +15,13 @@ for (int i = 0; i < populationSize; i++)
 
 IPopulation population = new Population(populationSize);
 
-population.CreateGeneration(particles);
+population.InitializeParticles(particles);
 
 IFitnessFunction fitness = new FuncFitness((particle) =>
 {
     double x = particle.Position[0];
 
-    return -1 * Math.Pow(x, 2);
+    return Math.Pow(x, 2);
 });
 
 IParticleSwarm pso = new ParticleSwarm(

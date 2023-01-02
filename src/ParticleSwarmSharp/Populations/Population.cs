@@ -1,21 +1,10 @@
-﻿using ParticleSwarmSharp.Particles;
+﻿using ParticleSwarmSharp.Events;
+using ParticleSwarmSharp.Particles;
 
 namespace ParticleSwarmSharp.Populations
 {
     public class Population : IPopulation
     {
-        public event EventHandler BestParticleChanged;
-
-        public DateTime CreatedAt { get; protected set; }
-
-        public IParticle BestParticle { get; set; }
-
-        public IList<Generation> Generations { get; protected set; }
-
-        public Generation CurrentGeneration { get; protected set; }
-
-        public int GenerationNumber { get; protected set; }
-
         public Population(int populationSize)
         {
             if (populationSize < 1)
@@ -28,27 +17,58 @@ namespace ParticleSwarmSharp.Populations
             Generations = new List<Generation>();
         }
 
-        public virtual void CreateGeneration(IEnumerable<IParticle> particles)
+        public DateTime CreatedAt { get; protected set; }
+
+        public IParticle? BestParticle { get; set; }
+
+        public IList<Generation> Generations { get; protected set; }
+
+        public Generation? CurrentGeneration { get; protected set; }
+
+        public int GenerationNumber { get; protected set; }
+
+        /// <summary>
+        /// Occurs when a new best particle is found.
+        /// </summary>
+        public event EventHandler? BestParticleChanged;
+
+        protected virtual void OnBestParticleChanged(BestParticleChanged e)
         {
-            CurrentGeneration = new Generation(++GenerationNumber, particles);
-            Generations.Add(CurrentGeneration);
+            BestParticleChanged?.Invoke(this, e);
+        }
+
+        public void InitializeParticles(IEnumerable<IParticle> particles)
+        {
+            GenerationNumber = 1;
+
+            Generation initial = new(GenerationNumber, particles);
+
+            Generations.Clear();
+            Generations.Add(initial);
+
+            CurrentGeneration = initial;
+        }
+
+        public void CreateGeneration()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void EndGeneration()
         {
+            if (CurrentGeneration == null)
+            {
+                return;
+            }
+
             CurrentGeneration.End();
 
             if (BestParticle != CurrentGeneration.BestParticle)
             {
                 BestParticle = CurrentGeneration.BestParticle;
 
-                OnBestParticleChanged(EventArgs.Empty);
+                OnBestParticleChanged(new BestParticleChanged(BestParticle));
             }
-        }
-
-        protected virtual void OnBestParticleChanged(EventArgs e)
-        {
-            BestParticleChanged?.Invoke(this, e);
         }
     }
 }

@@ -89,6 +89,8 @@ namespace ParticleSwarmSharp
                 particle.Update(BestParticle);
             }
 
+            _population.CreateGeneration();
+
             return EndCurrentGeneration();
         }
 
@@ -106,15 +108,19 @@ namespace ParticleSwarmSharp
 
         private void EvaluateFitness()
         {
+            if (_population.CurrentGeneration == null)
+            {
+                throw new Exception();
+            }
+
             foreach (var particle in _population.CurrentGeneration.Particles)
             {
                 particle.Fitness = _fitnessFunction.Evaluate(particle);
             }
 
-            var ordered = _population.CurrentGeneration.Particles
-                .OrderByDescending(x => x.Fitness.GetValueOrDefault());
-
-            _population.BestParticle = ordered.First();
+            _population.BestParticle = _population.CurrentGeneration.Particles
+                .OrderBy(x => x.Fitness.GetValueOrDefault())
+                .First();
         }
     }
 }
