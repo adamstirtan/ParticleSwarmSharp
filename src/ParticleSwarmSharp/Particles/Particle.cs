@@ -2,12 +2,12 @@
 {
     public abstract class Particle : IParticle
     {
-        protected double[] Position;
-        protected double[] Velocity;
-
-        public double? Fitness { get; set; }
+        public double[] Position { get; set; }
+        public double[] Velocity { get; set; }
 
         public int Dimensions { get; set; }
+
+        public virtual double? Fitness { get; set; }
 
         protected Particle(int dimensions)
         {

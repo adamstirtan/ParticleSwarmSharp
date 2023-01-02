@@ -1,5 +1,8 @@
 ﻿namespace ParticleSwarmSharp.Particles
 {
+    /// <summary>
+    /// Classical particle swarm optimization as proposed in https://ieeexplore.ieee.org/document/488968.
+    /// </summary>
     public class ClassicParticle : Particle
     {
         private static readonly double DefaultInertia = 0.9;
@@ -8,30 +11,53 @@
 
         private readonly Random _random = new();
 
-        public double Inertia;
-        public double Cognition;
-        public double Social;
-        public double[] PersonalBest;
+        private double _inertia;
+        private double _cognition;
+        private double _social;
+        private double? _fitness;
 
         public ClassicParticle(int dimensions) : this(dimensions, DefaultInertia, DefaultCognition, DefaultSocial)
         { }
 
         public ClassicParticle(int dimensions, double inertia, double cognition, double social) : base(dimensions)
         {
-            Inertia = inertia;
-            Cognition = cognition;
-            Social = social;
+            _inertia = inertia;
+            _cognition = cognition;
+            _social = social;
 
-            PersonalBest = new double[dimensions];
+            Position = new double[dimensions];
+
+            for (int d = 0; d < dimensions; d++)
+            {
+                Position[d] = _random.NextDouble();
+                Velocity[d] = _random.NextDouble();
+            }
+        }
+
+        public IParticle PersonalBest { get; private set; }
+
+        public override double? Fitness
+        {
+            get { return _fitness; }
+            set
+            {
+                if (PersonalBest == null || value < PersonalBest.Fitness)
+                {
+                    PersonalBest = Clone();
+                }
+
+                _fitness = value;
+            }
         }
 
         public override IParticle Clone()
         {
-            ClassicParticle clone = new(Dimensions, Inertia, Cognition, Social);
+            ClassicParticle clone = new(Dimensions, _inertia, _cognition, _social);
 
             Position.CopyTo(clone.Position, 0);
             Velocity.CopyTo(clone.Velocity, 0);
-            PersonalBest.CopyTo(clone.PersonalBest, 0);
+
+            clone.PersonalBest = PersonalBest.Clone();
 
             return clone;
         }
@@ -46,9 +72,9 @@
             for (int d = 0; d < Dimensions; d++)
             {
                 Velocity[d] =
-                    Inertia * Velocity[d] +
-                    Cognition * r1 * (PersonalBest[d] - Position[d]) +
-                    Social * r2 * (globalBest.Position[d] - Position[d]);
+                    _inertia * Velocity[d] +
+                    _cognition * r1 * (PersonalBest.Position[d] - Position[d]) +
+                    _social * r2 * (globalBest.Position[d] - Position[d]);
 
                 Position[d] += Velocity[d];
             }

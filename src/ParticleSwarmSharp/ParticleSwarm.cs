@@ -26,7 +26,7 @@ namespace ParticleSwarmSharp
 
         public TimeSpan RunTime => throw new NotImplementedException();
 
-        public Particle BestParticle => throw new NotImplementedException();
+        public IParticle BestParticle => _population.BestParticle;
 
         public event EventHandler? GenerationComplete;
 
@@ -42,6 +42,8 @@ namespace ParticleSwarmSharp
             }
 
             _isRunning = true;
+
+            EvaluateFitness();
 
             bool terminationCriteriaReached;
 
@@ -74,14 +76,37 @@ namespace ParticleSwarmSharp
 
         private bool EvolveOneGeneration()
         {
-            _population.EndGeneration();
+            foreach (IParticle particle in _population.CurrentGeneration.Particles)
+            {
+                particle.Update(_population.BestParticle);
+            }
 
             return EndCurrentGeneration();
         }
 
         private bool EndCurrentGeneration()
         {
-            return false;
+            EvaluateFitness();
+
+            _population.EndGeneration();
+
+            OnGenerationComplete(new GenerationEventArgs(
+                _population.GenerationNumber, _population.BestParticle));
+
+            return _terminationCriteria.HasReached(this);
+        }
+
+        private void EvaluateFitness()
+        {
+            foreach (var particle in _population.CurrentGeneration.Particles)
+            {
+                particle.Fitness = _fitnessFunction.Evaluate(particle);
+            }
+
+            var ordered = _population.CurrentGeneration.Particles
+                .OrderByDescending(x => x.Fitness.GetValueOrDefault());
+
+            _population.BestParticle = ordered.First();
         }
     }
 }

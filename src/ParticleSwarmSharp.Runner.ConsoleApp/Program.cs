@@ -1,25 +1,39 @@
 ﻿using ParticleSwarmSharp;
 using ParticleSwarmSharp.Fitness;
+using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
 using ParticleSwarmSharp.Termination;
 
-IPopulation population = new Population(25);
+Random random = new();
+
+int populationSize = 3;
+
+List<ClassicParticle> particles = new();
+
+for (int i = 0; i < populationSize; i++)
+{
+    particles.Add(new ClassicParticle(1));
+}
+
+IPopulation population = new Population(populationSize);
+
+population.CreateGeneration(particles);
 
 IFitnessFunction fitness = new FuncFitness((particle) =>
 {
-    //double x = particle.[0];
+    double x = particle.Position[0];
 
-    return Math.Pow(/*x*/5, 2);
+    return Math.Sin(x) + Math.Sin(10.0 / 3.0 * x);
 });
 
 IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
-    new GenerationCountTermination(3));
+    new GenerationCountTermination(50));
 
 pso.GenerationComplete += (s, e) =>
 {
-    Console.WriteLine("Generation complete");
+    Console.WriteLine(e.ToString());
 };
 
 pso.TerminationCriteriaReached += (s, e) =>

@@ -27,11 +27,13 @@ namespace ParticleSwarmSharp.Populations
 
         public IEnumerable<IParticle> Particles { get; internal set; }
 
-        public Particle? BestParticle { get; internal set; }
+        public IParticle? BestParticle { get; internal set; }
 
         public void End()
         {
             Particles = Particles.OrderByDescending(x => x.Fitness.Value);
+
+            BestParticle = Particles.First();
         }
     }
 }

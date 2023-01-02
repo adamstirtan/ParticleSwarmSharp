@@ -35,12 +35,7 @@ namespace ParticleSwarmSharp.Populations
         /// <summary>
         /// Gets the best particle.
         /// </summary>
-        IParticle BestParticle { get; }
-
-        /// <summary>
-        /// Creates the initial generation of particles.
-        /// </summary>
-        void CreateInitialGeneration();
+        IParticle BestParticle { get; set; }
 
         /// <summary>
         /// Advancwes to the next generation.

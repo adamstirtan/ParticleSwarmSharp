@@ -8,9 +8,9 @@ namespace ParticleSwarmSharp.Fitness
     public interface IFitnessFunction
     {
         /// <summary>
-        /// Performs the fitness evaluation for the specified <see cref="Particle"/>
+        /// Performs the fitness evaluation for the particle.
         /// </summary>
         /// <param name="particle">The particle to be evaluated.</param>
-        double Evaluate(Particle particle);
+        double Evaluate(IParticle particle);
     }
 }

@@ -23,9 +23,9 @@ namespace ParticleSwarmSharp
         event EventHandler Stopped;
 
         /// <summary>
-        /// Gets the best particle.
+        /// Gets the current generation's best particle.
         /// </summary>
-        Particle BestParticle { get; }
+        IParticle BestParticle { get; }
 
         /// <summary>
         /// Gets the runtime for the optimization.
