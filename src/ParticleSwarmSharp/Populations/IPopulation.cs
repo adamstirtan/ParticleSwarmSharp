@@ -38,12 +38,6 @@ namespace ParticleSwarmSharp.Populations
         IParticle? BestParticle { get; set; }
 
         /// <summary>
-        /// Initializes particles in the search-space.
-        /// </summary>
-        /// <param name="particles">The initial particles.</param>
-        void InitializeParticles(IEnumerable<IParticle> particles);
-
-        /// <summary>
         /// Advances to the next generation.
         /// </summary>
         void CreateGeneration();

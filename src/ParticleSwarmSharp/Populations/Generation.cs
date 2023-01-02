@@ -16,14 +16,14 @@ namespace ParticleSwarmSharp.Populations
                 throw new ArgumentNullException(nameof(particles));
             }
 
-            Number = number;
             CreatedAt = DateTime.Now;
+            Number = number;
             Particles = particles;
         }
 
-        public int Number { get; private set; }
-
         public DateTime CreatedAt { get; internal set; }
+
+        public int Number { get; private set; }
 
         public IEnumerable<IParticle> Particles { get; internal set; }
 

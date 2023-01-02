@@ -5,16 +5,24 @@ namespace ParticleSwarmSharp.Populations
 {
     public class Population : IPopulation
     {
-        public Population(int populationSize)
+        public Population(IEnumerable<IParticle> particles)
         {
-            if (populationSize < 1)
+            if (!particles.Any())
             {
-                throw new ArgumentOutOfRangeException(nameof(populationSize));
+                throw new ArgumentOutOfRangeException(nameof(particles));
             }
 
             CreatedAt = DateTime.Now;
-            GenerationNumber = 0;
-            Generations = new List<Generation>();
+            GenerationNumber = 1;
+
+            Generation initial = new(GenerationNumber, particles);
+
+            Generations = new List<Generation>
+            {
+                initial
+            };
+
+            CurrentGeneration = initial;
         }
 
         public DateTime CreatedAt { get; protected set; }
@@ -37,21 +45,10 @@ namespace ParticleSwarmSharp.Populations
             BestParticleChanged?.Invoke(this, e);
         }
 
-        public void InitializeParticles(IEnumerable<IParticle> particles)
-        {
-            GenerationNumber = 1;
-
-            Generation initial = new(GenerationNumber, particles);
-
-            Generations.Clear();
-            Generations.Add(initial);
-
-            CurrentGeneration = initial;
-        }
-
         public void CreateGeneration()
         {
-            throw new NotImplementedException();
+            CurrentGeneration = new Generation(++GenerationNumber, CurrentGeneration.Particles);
+            Generations.Add(CurrentGeneration);
         }
 
         public virtual void EndGeneration()

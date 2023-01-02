@@ -20,7 +20,7 @@ namespace ParticleSwarmSharp.Events
         {
             StringBuilder stringBuilder = new();
 
-            stringBuilder.Append($"{DateTime.Now.ToShortTimeString()} - Generation: {GenerationNumber}\n");
+            stringBuilder.Append($"Generation:\t{GenerationNumber}\n");
             stringBuilder.Append($"Fitness:\t{BestParticle.Fitness}\n");
             stringBuilder.Append($"Solution:\t{string.Join(", ", BestParticle.Position)}");
             stringBuilder.Append('\n');

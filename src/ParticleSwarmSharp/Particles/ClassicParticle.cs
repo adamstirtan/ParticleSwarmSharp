@@ -1,4 +1,6 @@
-﻿namespace ParticleSwarmSharp.Particles
+﻿using ParticleSwarmSharp.Randomization;
+
+namespace ParticleSwarmSharp.Particles
 {
     /// <summary>
     /// Classical particle swarm optimization as proposed in https://ieeexplore.ieee.org/document/488968.
@@ -9,7 +11,7 @@
         private static readonly double DefaultCognition = 1.4;
         private static readonly double DefaultSocial = 1.4;
 
-        private readonly Random _random = new();
+        private readonly IRandomization _random = new BasicRandomization();
 
         private readonly double _inertia;
         private readonly double _cognition;
@@ -25,14 +27,6 @@
             _inertia = inertia;
             _cognition = cognition;
             _social = social;
-
-            Position = new double[dimensions];
-
-            for (int d = 0; d < dimensions; d++)
-            {
-                Position[d] = _random.NextDouble();
-                Velocity[d] = _random.NextDouble();
-            }
         }
 
         public IParticle? PersonalBest { get; private set; }
@@ -70,8 +64,8 @@
 
             ClassicParticle globalBest = (ClassicParticle)particles.First();
 
-            double r1 = _random.NextDouble();
-            double r2 = _random.NextDouble();
+            double r1 = _random.GetDouble();
+            double r2 = _random.GetDouble();
 
             for (int d = 0; d < Dimensions; d++)
             {
