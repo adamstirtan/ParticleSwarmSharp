@@ -14,7 +14,7 @@ namespace ParticleSwarmSharp
 
         private bool _isRunning;
 
-        private IList<IParticle> _bestSolutions;
+        private readonly IList<IParticle> _bestSolutions;
 
         public ParticleSwarm(
             IPopulation population,
