@@ -6,9 +6,9 @@ namespace ParticleSwarmSharp.Events
 {
     public class BestParticleChangedEventArgs : EventArgs
     {
-        public IParticle? BestParticle { get; set; }
+        public IParticle BestParticle { get; set; }
 
-        public BestParticleChangedEventArgs(IParticle? bestParticle)
+        public BestParticleChangedEventArgs(IParticle bestParticle)
         {
             BestParticle = bestParticle;
         }
@@ -17,7 +17,7 @@ namespace ParticleSwarmSharp.Events
         {
             StringBuilder stringBuilder = new();
 
-            stringBuilder.AppendLine("Best particle updated");
+            stringBuilder.AppendLine("Best particle updated!");
             stringBuilder.AppendLine($"Fitness: {BestParticle.Fitness}");
             stringBuilder.AppendLine($"Position: {string.Join(", ", BestParticle.Position)}");
 

@@ -9,7 +9,7 @@ IRandomization random = new BasicRandomization();
 
 int populationSize = 15;
 int dimensions = 1;
-int iterations = 100;
+int iterations = 15;
 double minX = -100.0;
 double maxX = 100.0;
 
@@ -38,7 +38,7 @@ IFitnessFunction fitness = new FuncFitness(candidate =>
 IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
-    new GenerationCountTermination(iterations));
+    new FitnessStagnationTermination(50));
 
 pso.BestParticleChanged += (s, e) =>
 {

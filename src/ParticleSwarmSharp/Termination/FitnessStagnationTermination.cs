@@ -18,7 +18,12 @@
 
         public bool HasReached(IParticleSwarm particleSwarm)
         {
-            var bestFitness = particleSwarm.BestParticle.Fitness.Value;
+            if (particleSwarm.BestParticle == null || particleSwarm.BestParticle.Fitness == null)
+            {
+                return false;
+            }
+
+            var bestFitness = particleSwarm.BestParticle.Fitness;
 
             if (_lastFitness == bestFitness)
             {
@@ -29,7 +34,7 @@
                 _stagnatedGenerationCount = 1;
             }
 
-            _lastFitness = bestFitness;
+            _lastFitness = bestFitness.Value;
 
             return _stagnatedGenerationCount >= _stagnatedGenerationLimit;
         }

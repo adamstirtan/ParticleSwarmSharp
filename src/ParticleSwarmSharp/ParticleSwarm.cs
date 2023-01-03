@@ -14,6 +14,8 @@ namespace ParticleSwarmSharp
 
         private bool _isRunning;
 
+        private IList<IParticle> _bestSolutions;
+
         public ParticleSwarm(
             IPopulation population,
             IFitnessFunction fitnessFunction,
@@ -23,11 +25,17 @@ namespace ParticleSwarmSharp
             _fitnessFunction = fitnessFunction;
             _terminationCriteria = terminationCriteria;
 
+            _bestSolutions = new List<IParticle>();
+
             _population.BestParticleChanged += PopulationBestParticleChanged;
         }
 
         private void PopulationBestParticleChanged(object? sender, EventArgs e)
         {
+            var eventArgs = (BestParticleChangedEventArgs)e;
+
+            _bestSolutions.Add(eventArgs.BestParticle);
+
             BestParticleChanged?.Invoke(this, e);
         }
 
@@ -86,7 +94,7 @@ namespace ParticleSwarmSharp
             {
                 _isRunning = false;
 
-                OnStop(new StoppedEventArgs());
+                OnStop(new StoppedEventArgs(_bestSolutions));
             }
         }
 
