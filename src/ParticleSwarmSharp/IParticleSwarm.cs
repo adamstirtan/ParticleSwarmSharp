@@ -8,6 +8,11 @@ namespace ParticleSwarmSharp
     public interface IParticleSwarm
     {
         /// <summary>
+        /// Occurs when a new best particle is found.
+        /// </summary>
+        event EventHandler BestParticleChanged;
+
+        /// <summary>
         /// Occurs after an generation completes.
         /// </summary>
         event EventHandler GenerationComplete;

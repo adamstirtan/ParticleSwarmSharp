@@ -5,6 +5,8 @@ namespace ParticleSwarmSharp.Populations
 {
     public class Population : IPopulation
     {
+        private IParticle? _bestParticle;
+
         public Population(IEnumerable<IParticle> particles)
         {
             if (!particles.Any())
@@ -18,7 +20,19 @@ namespace ParticleSwarmSharp.Populations
 
         public DateTime CreatedAt { get; protected set; }
 
-        public IParticle? BestParticle { get; set; }
+        public IParticle? BestParticle
+        {
+            get
+            {
+                return _bestParticle;
+            }
+            set
+            {
+                _bestParticle = value;
+
+                OnBestParticleChanged(new BestParticleChangedEventArgs(_bestParticle));
+            }
+        }
 
         public IEnumerable<IParticle> Particles { get; set; }
 
@@ -27,7 +41,7 @@ namespace ParticleSwarmSharp.Populations
         /// </summary>
         public event EventHandler? BestParticleChanged;
 
-        protected virtual void OnBestParticleChanged(BestParticleChanged e)
+        protected virtual void OnBestParticleChanged(BestParticleChangedEventArgs e)
         {
             BestParticleChanged?.Invoke(this, e);
         }

@@ -7,20 +7,21 @@ using ParticleSwarmSharp.Termination;
 
 IRandomization random = new BasicRandomization();
 
-int populationSize = 5;
+int populationSize = 15;
 int dimensions = 1;
-int iterations = 15;
-double minX = -10.0;
-double maxX = 10.0;
+int iterations = 100;
+double minX = -100.0;
+double maxX = 100.0;
 
 List<ClassicParticle> particles = new();
 
 for (int i = 0; i < populationSize; i++)
 {
-    ClassicParticle particle = new(dimensions);
-
-    particle.Position = random.GetDoubles(dimensions, minX, maxX);
-    particle.Velocity = random.GetDoubles(dimensions, 0, 1);
+    ClassicParticle particle = new(dimensions)
+    {
+        Position = random.GetDoubles(dimensions, minX, maxX),
+        Velocity = random.GetDoubles(dimensions, 0, 1)
+    };
 
     particles.Add(particle);
 }
@@ -38,6 +39,11 @@ IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
     new GenerationCountTermination(iterations));
+
+pso.BestParticleChanged += (s, e) =>
+{
+    Console.WriteLine(e.ToString());
+};
 
 pso.GenerationComplete += (s, e) =>
 {

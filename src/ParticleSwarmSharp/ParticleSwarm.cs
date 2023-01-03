@@ -22,6 +22,13 @@ namespace ParticleSwarmSharp
             _population = population;
             _fitnessFunction = fitnessFunction;
             _terminationCriteria = terminationCriteria;
+
+            _population.BestParticleChanged += PopulationBestParticleChanged;
+        }
+
+        private void PopulationBestParticleChanged(object? sender, EventArgs e)
+        {
+            BestParticleChanged?.Invoke(this, e);
         }
 
         public TimeSpan RunTime => throw new NotImplementedException();
@@ -40,6 +47,8 @@ namespace ParticleSwarmSharp
                 return _population.BestParticle;
             }
         }
+
+        public event EventHandler? BestParticleChanged;
 
         public event EventHandler? GenerationComplete;
 
@@ -81,6 +90,11 @@ namespace ParticleSwarmSharp
             }
         }
 
+        protected virtual void OnBestParticleChanged(BestParticleChangedEventArgs e)
+        {
+            BestParticleChanged?.Invoke(this, e);
+        }
+
         protected virtual void OnIterationComplete(IterationEventArgs e)
         {
             GenerationComplete?.Invoke(this, e);
@@ -117,9 +131,14 @@ namespace ParticleSwarmSharp
                 particle.Fitness = _fitnessFunction.Evaluate(particle);
             }
 
-            _population.BestParticle = _population.Particles
+            IParticle bestParticle = _population.Particles
                 .OrderBy(x => x.Fitness.GetValueOrDefault())
                 .First();
+
+            if (_population.BestParticle == null || bestParticle.Fitness < _population.BestParticle.Fitness)
+            {
+                _population.BestParticle = bestParticle.Clone();
+            }
         }
     }
 }

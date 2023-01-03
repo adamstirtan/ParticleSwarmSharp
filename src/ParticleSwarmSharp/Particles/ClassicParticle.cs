@@ -54,6 +54,11 @@ namespace ParticleSwarmSharp.Particles
             Position.CopyTo(clone.Position, 0);
             Velocity.CopyTo(clone.Velocity, 0);
 
+            if (_fitness != null)
+            {
+                clone.Fitness = _fitness;
+            }
+
             return clone;
         }
 
