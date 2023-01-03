@@ -13,7 +13,6 @@ namespace ParticleSwarmSharp
         private readonly ITermination _terminationCriteria;
 
         private bool _isRunning;
-        private int _iteration;
 
         public ParticleSwarm(
             IPopulation population,
@@ -27,11 +26,24 @@ namespace ParticleSwarmSharp
 
         public TimeSpan RunTime => throw new NotImplementedException();
 
-        public IParticle BestParticle => _population.BestParticle;
+        public int IterationNumber { get; set; }
+
+        public IParticle BestParticle
+        {
+            get
+            {
+                if (_population.BestParticle == null)
+                {
+                    throw new Exception("Particles are not evaluated");
+                }
+
+                return _population.BestParticle;
+            }
+        }
 
         public event EventHandler? GenerationComplete;
 
-        public event EventHandler? TerminationCriteriaReached;
+        public event EventHandler? TerminationReached;
 
         public event EventHandler? Stopped;
 
@@ -43,19 +55,19 @@ namespace ParticleSwarmSharp
             }
 
             _isRunning = true;
-            _iteration = 0;
 
+            IterationNumber = 0;
             EvaluateFitness();
 
-            bool terminationCriteriaReached;
+            bool terminationReached;
 
             do
             {
-                terminationCriteriaReached = Iteration();
+                terminationReached = Iteration();
             }
-            while (!terminationCriteriaReached);
+            while (!terminationReached);
 
-            OnTerminationCriteriaReached(new TerminationReachedEventArgs());
+            OnTerminationReached(new TerminationReachedEventArgs());
             Stop();
         }
 
@@ -74,9 +86,9 @@ namespace ParticleSwarmSharp
             GenerationComplete?.Invoke(this, e);
         }
 
-        protected virtual void OnTerminationCriteriaReached(TerminationReachedEventArgs e)
+        protected virtual void OnTerminationReached(TerminationReachedEventArgs e)
         {
-            TerminationCriteriaReached?.Invoke(this, e);
+            TerminationReached?.Invoke(this, e);
         }
 
         protected virtual void OnStop(StoppedEventArgs e)
@@ -93,8 +105,7 @@ namespace ParticleSwarmSharp
 
             EvaluateFitness();
 
-            OnIterationComplete(new IterationEventArgs(
-                ++_iteration, BestParticle));
+            OnIterationComplete(new IterationEventArgs(++IterationNumber, BestParticle));
 
             return _terminationCriteria.HasReached(this);
         }

@@ -15,12 +15,17 @@ namespace ParticleSwarmSharp
         /// <summary>
         /// Occurs when the termination criteria is reached.
         /// </summary>
-        event EventHandler TerminationCriteriaReached;
+        event EventHandler TerminationReached;
 
         /// <summary>
         /// Occurs when optimization is stopped during runtime.
         /// </summary>
         event EventHandler Stopped;
+
+        /// <summary>
+        /// Gets the optimization iteration number.
+        /// </summary>
+        int IterationNumber { get; set; }
 
         /// <summary>
         /// Gets the current generation's best particle.

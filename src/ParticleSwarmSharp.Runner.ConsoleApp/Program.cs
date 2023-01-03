@@ -7,8 +7,9 @@ using ParticleSwarmSharp.Termination;
 
 IRandomization random = new BasicRandomization();
 
-int populationSize = 25;
+int populationSize = 5;
 int dimensions = 1;
+int iterations = 15;
 double minX = -10.0;
 double maxX = 10.0;
 
@@ -36,14 +37,14 @@ IFitnessFunction fitness = new FuncFitness(candidate =>
 IParticleSwarm pso = new ParticleSwarm(
     population,
     fitness,
-    new GenerationCountTermination(100));
+    new GenerationCountTermination(iterations));
 
 pso.GenerationComplete += (s, e) =>
 {
     Console.WriteLine(e.ToString());
 };
 
-pso.TerminationCriteriaReached += (s, e) =>
+pso.TerminationReached += (s, e) =>
 {
     Console.WriteLine(e.ToString());
 };

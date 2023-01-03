@@ -2,8 +2,7 @@
 {
     public class GenerationCountTermination : ITermination
     {
-        private int _maximumGenerations;
-        private int _generationNumber;
+        private readonly int _maximumGenerations;
 
         public GenerationCountTermination(int maximumGenerations)
         {
@@ -12,7 +11,7 @@
 
         public bool HasReached(IParticleSwarm particleSwarm)
         {
-            if (++_generationNumber > _maximumGenerations)
+            if (particleSwarm.IterationNumber > _maximumGenerations)
             {
                 return true;
             }
