@@ -9,7 +9,6 @@ IRandomization random = new BasicRandomization();
 
 int populationSize = 15;
 int dimensions = 1;
-int iterations = 15;
 double minX = -100.0;
 double maxX = 100.0;
 
