@@ -12,7 +12,7 @@ int dimensions = 1;
 double minX = -100.0;
 double maxX = 100.0;
 
-List<ClassicParticle> particles = new();
+var particles = new List<IParticle>();
 
 for (int i = 0; i < populationSize; i++)
 {

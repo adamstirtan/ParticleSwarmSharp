@@ -25,6 +25,6 @@ namespace ParticleSwarmSharp.Populations
         /// <summary>
         /// GEts the particles.
         /// </summary>
-        IEnumerable<IParticle> Particles { get; set; }
+        IList<IParticle> Particles { get; set; }
     }
 }

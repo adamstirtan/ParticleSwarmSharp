@@ -7,7 +7,7 @@ namespace ParticleSwarmSharp.Populations
     {
         private IParticle? _bestParticle;
 
-        public Population(IEnumerable<IParticle> particles)
+        public Population(IList<IParticle> particles)
         {
             if (!particles.Any())
             {
@@ -34,7 +34,7 @@ namespace ParticleSwarmSharp.Populations
             }
         }
 
-        public IEnumerable<IParticle> Particles { get; set; }
+        public IList<IParticle> Particles { get; set; }
 
         /// <summary>
         /// Occurs when a new best particle is found.

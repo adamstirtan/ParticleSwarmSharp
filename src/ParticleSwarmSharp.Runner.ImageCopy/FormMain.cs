@@ -4,53 +4,36 @@ using ParticleSwarmSharp.Events;
 using ParticleSwarmSharp.Fitness;
 using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
-using ParticleSwarmSharp.Randomization;
 using ParticleSwarmSharp.Termination;
 
 namespace ParticleSwarmSharp.Runner.ImageCopy
 {
     public partial class Form1 : Form
     {
-        private readonly IRandomization _random;
-
-        private readonly int _polygonCount = 10;
+        private readonly int _polygonCount = 1;
 
         public Form1()
         {
             InitializeComponent();
-
-            _random = new BasicRandomization();
         }
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            int populationSize = 100;
+            int populationSize = 25;
             int rgba = 4;
-            int dimensions = 3 * _polygonCount * rgba;
+            int points = 3;
+            int dimensions = _polygonCount * ((points * 2) + rgba);
 
-            double min = 0;
-            double max = pictureOriginal.Width;
-
-            List<ClassicParticle> particles = new();
+            var particles = new List<IParticle>();
 
             for (int i = 0; i < populationSize; i++)
             {
-                ClassicParticle particle = new(dimensions, 0.8, 2, 2)
-                {
-                    Position = _random.GetDoubles(dimensions, min, max),
-                    Velocity = _random.GetDoubles(dimensions, 0, 1)
-                };
-
-                particles.Add(particle);
+                particles.Add(new ImageCopyParticle(dimensions, pictureCopy.Width));
             }
 
-            IPopulation population = new Population(particles);
-
-            IFitnessFunction fitness = new FuncFitness(EvaluateFitness);
-
             IParticleSwarm pso = new ParticleSwarm(
-                population,
-                fitness,
+                new Population(particles),
+                new FuncFitness(RedGreenBlueFitness),
                 new GenerationCountTermination(1000));
 
             pso.BestParticleChanged += (s, e) =>
@@ -71,19 +54,22 @@ namespace ParticleSwarmSharp.Runner.ImageCopy
             pso.Start();
         }
 
-        private double EvaluateFitness(IParticle particle)
+        private double RedGreenBlueFitness(IParticle particle)
         {
             double fitness = 0;
 
             Bitmap original = new(pictureOriginal.Image);
             Bitmap copy = ToImage(particle);
 
+            using BmpPixelSnoop originalSnoop = new(original);
+            using BmpPixelSnoop copySnoop = new(copy);
+
             for (int x = 0; x < original.Width; x++)
             {
                 for (int y = 0; y < original.Height; y++)
                 {
-                    Color copyColor = copy.GetPixel(x, y);
-                    Color originalColor = original.GetPixel(x, y);
+                    Color copyColor = copySnoop.GetPixel(x, y);
+                    Color originalColor = originalSnoop.GetPixel(x, y);
 
                     fitness += Math.Abs(copyColor.R - originalColor.R);
                     fitness += Math.Abs(copyColor.G - originalColor.G);

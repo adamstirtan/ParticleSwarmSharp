@@ -1,4 +1,5 @@
 ﻿using ParticleSwarmSharp.Particles;
+using ParticleSwarmSharp.Populations;
 
 namespace ParticleSwarmSharp
 {
@@ -31,6 +32,11 @@ namespace ParticleSwarmSharp
         /// Gets the optimization iteration number.
         /// </summary>
         int IterationNumber { get; set; }
+
+        /// <summary>
+        /// Gets the population.
+        /// </summary>
+        IPopulation Population { get; set; }
 
         /// <summary>
         /// Gets the current generation's best particle.
