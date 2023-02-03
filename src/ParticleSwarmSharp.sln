@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp.Runner.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp.Runner.ImageCopy", "ParticleSwarmSharp.Runner.ImageCopy\ParticleSwarmSharp.Runner.ImageCopy.csproj", "{FD010C3B-AD94-49AC-8CC7-C86FC54283E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParticleSwarmSharp.Benchmarks", "ParticleSwarmSharp.Benchmarks\ParticleSwarmSharp.Benchmarks.csproj", "{3769619A-BC4E-401F-91C1-B5E58078C4D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParticleSwarmSharp.Benchmarks", "ParticleSwarmSharp.Benchmarks\ParticleSwarmSharp.Benchmarks.csproj", "{3769619A-BC4E-401F-91C1-B5E58078C4D0}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "ParticleSwarmSharp.Runner.WebCanvas", "ParticleSwarmSharp.Runner.WebCanvas\ParticleSwarmSharp.Runner.WebCanvas.esproj", "{63724913-DA52-4B39-85D0-21EDED61E19C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,12 @@ Global
 		{3769619A-BC4E-401F-91C1-B5E58078C4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3769619A-BC4E-401F-91C1-B5E58078C4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3769619A-BC4E-401F-91C1-B5E58078C4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63724913-DA52-4B39-85D0-21EDED61E19C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
