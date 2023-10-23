@@ -4,6 +4,8 @@
 
 ParticleSwarmSharp is a fast, extensible, multi-platform C# particle swarm optimization (PSO) library that simplifies the development of applications using PSO.
 
+For an introduction on Particle Swarm Optimization visit my blog: https://blog.adamstirtan.net/2023/10/introduction-to-pso-in-csharp.html
+
 You can use this library anywhere that supports .NET
 
 ![ParticleSwarmArrowsAnimation](https://user-images.githubusercontent.com/9989813/209844808-d145cb49-03e2-4dc2-877b-06662ab04859.gif)
