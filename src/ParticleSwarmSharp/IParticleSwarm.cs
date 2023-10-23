@@ -1,5 +1,7 @@
-﻿using ParticleSwarmSharp.Particles;
+﻿using ParticleSwarmSharp.Fitness;
+using ParticleSwarmSharp.Particles;
 using ParticleSwarmSharp.Populations;
+using ParticleSwarmSharp.Termination;
 
 namespace ParticleSwarmSharp
 {
@@ -37,6 +39,16 @@ namespace ParticleSwarmSharp
         /// Gets the population.
         /// </summary>
         IPopulation Population { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fitness function.
+        /// </summary>
+        IFitness Fitness { get; set; }
+
+        /// <summary>
+        /// Gets or sets the termination criteria.
+        /// </summary>
+        ITermination Termination { get; set; }
 
         /// <summary>
         /// Gets the current generation's best particle.

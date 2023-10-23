@@ -8,23 +8,21 @@ namespace ParticleSwarmSharp
 {
     public class ParticleSwarm : IParticleSwarm
     {
-        private readonly IFitnessFunction _fitnessFunction;
-        private readonly ITermination _terminationCriteria;
         private readonly IList<IParticle> _bestSolutions;
 
         private bool _isRunning;
 
         public ParticleSwarm(
             IPopulation population,
-            IFitnessFunction fitnessFunction,
-            ITermination terminationCriteria)
+            IFitness fitness,
+            ITermination termination)
         {
-            _fitnessFunction = fitnessFunction;
-            _terminationCriteria = terminationCriteria;
+            Population = population;
+            Fitness = fitness;
+            Termination = termination;
 
             _bestSolutions = new List<IParticle>();
 
-            Population = population;
             Population.BestParticleChanged += PopulationBestParticleChanged;
         }
 
@@ -37,11 +35,15 @@ namespace ParticleSwarmSharp
             BestParticleChanged?.Invoke(this, e);
         }
 
-        public TimeSpan RunTime => throw new NotImplementedException();
+        public TimeSpan RunTime { get; set; }
 
         public int IterationNumber { get; set; }
 
         public IPopulation Population { get; set; }
+
+        public IFitness Fitness { get; set; }
+
+        public ITermination Termination { get; set; }
 
         public IParticle BestParticle
         {
@@ -129,14 +131,14 @@ namespace ParticleSwarmSharp
 
             OnIterationComplete(new IterationEventArgs(++IterationNumber, BestParticle));
 
-            return _terminationCriteria.HasReached(this);
+            return Termination.HasReached(this);
         }
 
         private void EvaluateFitness()
         {
             foreach (var particle in Population.Particles)
             {
-                particle.Fitness = _fitnessFunction.Evaluate(particle);
+                particle.Fitness = Fitness.Evaluate(particle);
             }
 
             IParticle bestParticle = Population.Particles

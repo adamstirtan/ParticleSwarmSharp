@@ -2,7 +2,7 @@
 
 namespace ParticleSwarmSharp.Fitness
 {
-    public class FuncFitness : IFitnessFunction
+    public class FuncFitness : IFitness
     {
         private readonly Func<IParticle, double> _function;
 

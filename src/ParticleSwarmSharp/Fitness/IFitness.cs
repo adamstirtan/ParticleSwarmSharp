@@ -5,7 +5,7 @@ namespace ParticleSwarmSharp.Fitness
     /// <summary>
     /// Defines an interface for particle swarm optimization fitness.
     /// </summary>
-    public interface IFitnessFunction
+    public interface IFitness
     {
         /// <summary>
         /// Performs the fitness evaluation for the particle.
