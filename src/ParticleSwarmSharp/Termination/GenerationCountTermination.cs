@@ -11,12 +11,7 @@
 
         public bool HasReached(IParticleSwarm particleSwarm)
         {
-            if (particleSwarm.IterationNumber > _maximumGenerations)
-            {
-                return true;
-            }
-
-            return false;
+            return particleSwarm.IterationNumber > _maximumGenerations;
         }
     }
 }

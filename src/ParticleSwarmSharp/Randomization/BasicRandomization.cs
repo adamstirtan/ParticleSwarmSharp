@@ -2,14 +2,13 @@
 {
     public class BasicRandomization : Randomization
     {
-        private static ThreadLocal<Random> _threadRandom = new ThreadLocal<Random>(NewRandom);
+        private static ThreadLocal<Random> _threadRandom = new(NewRandom);
 
         private static readonly Random _globalRandom = new();
         private static readonly object _globalLock = new();
         private static int? _seed;
 
-        private static Random Instance
-        { get { return _threadRandom.Value; } }
+        private static Random Instance => _threadRandom.Value;
 
         private static Random NewRandom()
         {

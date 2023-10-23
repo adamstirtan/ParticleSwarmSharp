@@ -27,7 +27,7 @@ for (int i = 0; i < populationSize; i++)
 
 IPopulation population = new Population(particles);
 
-IFitnessFunction fitness = new FuncFitness(candidate =>
+IFitness fitness = new FuncFitness(candidate =>
 {
     double x = candidate.Position[0];
 
