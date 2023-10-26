@@ -1,0 +1,39 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+env:
+  PROJECT_PATH: ./src/ParticleSwarmSharp
+  PACKAGE_OUTPUT_PATH: ${{ github.workspace }}\output
+
+jobs:
+  build:
+    name: Publish NuGet Package
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: ${{ env.PROJECT_PATH }}
+
+    - name: Build
+      run: dotnet build --no-restore
+      working-directory: ${{ env.PROJECT_PATH }}
+
+    - name: Get version
+      id: get_version
+      uses: battila7/get-version-action@v2
+
+    - name: Pack
+      run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.get_version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_PATH }}

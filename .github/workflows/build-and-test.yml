@@ -1,6 +1,4 @@
-# This workflow will build a .NET project
-
-name: .NET
+name: Build and test
 
 on:
   push:
@@ -8,25 +6,30 @@ on:
   pull_request:
     branches: [ "master" ]
 
+env:
+  PROJECT_PATH: ./src/ParticleSwarmSharp.UnitTests
+
 jobs:
   build:
-    env:
-      working-directory: ./src/ParticleSwarmSharp.UnitTests
-
-    runs-on: ubuntu-latest
+    name: Build and test
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v3
+  
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.PROJECT_PATH }}
+
     - name: Build
       run: dotnet build --no-restore
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.PROJECT_PATH }}
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
-      working-directory: ${{ env.working-directory }}
+      working-directory: ${{ env.PROJECT_PATH }}
