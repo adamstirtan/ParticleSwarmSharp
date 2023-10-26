@@ -3,6 +3,9 @@ using ParticleSwarmSharp.Particles;
 
 namespace ParticleSwarmSharp.Populations
 {
+    /// <summary>
+    /// Represents a population of candidate solutions (particles).
+    /// </summary>
     public class Population : IPopulation
     {
         private IParticle? _bestParticle;

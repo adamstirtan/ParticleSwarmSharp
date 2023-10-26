@@ -6,6 +6,7 @@ using ParticleSwarmSharp.Termination;
 
 namespace ParticleSwarmSharp
 {
+
     public class ParticleSwarm : IParticleSwarm
     {
         private readonly IList<IParticle> _bestSolutions;
