@@ -12,7 +12,7 @@ on:
 #     - 'v*'
 
 env:
-  PROJECT_PATH: src/ParticleSwarmSharp/ParticleSwarmSharp.csproj
+  PROJECT_PATH: src\ParticleSwarmSharp\ParticleSwarmSharp.csproj
   PACKAGE_OUTPUT_PATH: ${{ github.workspace }}\output
 
 jobs:
