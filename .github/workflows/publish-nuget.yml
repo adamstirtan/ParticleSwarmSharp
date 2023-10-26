@@ -33,7 +33,7 @@ jobs:
       run: dotnet restore ${{ env.PROJECT_PATH }}
 
     - name: Build
-      run: dotnet build --no-restore ${{ env.PROJECT_PATH }}
+      run: dotnet build --no-restore ${{ env.PROJECT_PATH }} --no-restore --configuration Release
 
     - name: Get version
       id: get_version
